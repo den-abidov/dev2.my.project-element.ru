@@ -1,0 +1,13 @@
+﻿includes:
+  - vendor/nunomaduro/larastan/extension.neon
+
+parameters:
+  paths:
+    - app
+    - database
+  level: 8
+  checkModelProperties: true
+  checkMissingIterableValueType: true
+  reportUnmatchedIgnoredErrors: false
+  parallel:
+    maximumNumberOfProcesses: 4

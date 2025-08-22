@@ -1,0 +1,8 @@
+﻿{
+  "preset": "laravel",
+  "rules": {
+    "ordered_imports": { "sort_algorithm": "alpha", "imports_order": ["class", "function", "const"] },
+    "concat_space": { "spacing": "one" },
+    "binary_operator_spaces": { "operators": { "=>": "align_single_space_minimal" } }
+  }
+}
