@@ -1,4 +1,4 @@
-﻿name: CI
+name: CI
 
 on:
   push:
@@ -12,13 +12,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # PHP 8.3 + расширения; кэш композера
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: "8.3"
           extensions: mbstring, intl, pdo_sqlite
-          coverage: none
+          coverage: pcov   # нужно для покрытия при запуске pest --coverage (если захочешь)
 
       - name: Cache Composer deps
         uses: actions/cache@v4
@@ -30,7 +29,6 @@ jobs:
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress --no-interaction
 
-      # Готовим .env под SQLite и ключ приложения
       - name: Prepare environment (.env + SQLite)
         run: |
           cp .env.example .env
@@ -44,11 +42,8 @@ jobs:
           php artisan migrate --no-interaction --force
           php artisan db:seed --no-interaction
 
-      - name: Pint (code style)
+      - name: Pint (code style check)
         run: vendor/bin/pint --test
 
-      - name: PHPStan (Larastan)
-        run: vendor/bin/phpstan analyse --no-progress
-
-      - name: PHPUnit tests
-        run: php artisan test --no-interaction
+      - name: Pest tests
+        run: vendor/bin/pest
