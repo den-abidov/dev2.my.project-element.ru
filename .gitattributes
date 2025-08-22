@@ -1,11 +1,34 @@
-* text=auto eol=lf
+﻿# Нормализация переводов строк: LF в репозитории, LF в рабочей копии по умолчанию
+*               text=auto eol=lf
 
-*.blade.php diff=html
-*.css diff=css
-*.html diff=html
-*.md diff=markdown
-*.php diff=php
+# Явно: PHP/JS/CSS/HTML и т.п. — текст с LF
+*.php           text eol=lf
+*.js            text eol=lf
+*.ts            text eol=lf
+*.css           text eol=lf
+*.scss          text eol=lf
+*.html          text eol=lf
+*.blade.php     text eol=lf
+*.json          text eol=lf
+*.yml           text eol=lf
+*.yaml          text eol=lf
+*.md            text eol=lf
+*.svg           text eol=lf
+*.sh            text eol=lf
 
-/.github export-ignore
-CHANGELOG.md export-ignore
-.styleci.yml export-ignore
+# Windows-скрипты — CRLF (удобно запускать в консоли Windows)
+*.bat           text eol=crlf
+*.cmd           text eol=crlf
+*.ps1           text eol=crlf
+
+# Бинарные файлы — не трогаем переводы строк
+*.png           -text
+*.jpg           -text
+*.jpeg          -text
+*.gif           -text
+*.ico           -text
+*.pdf           -text
+*.zip           -text
+*.gz            -text
+*.7z            -text
+*.exe           -text
