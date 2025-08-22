@@ -12,13 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('activities', function (Blueprint $table) {
-             $table->id();
+            $table->id();
 
             // одна запись на пользователя
             $table->foreignId('user_id')->unique()
-                  ->nullable()               // для SET NULL при удалении
-                  ->constrained('users')
-                  ->nullOnDelete();          // если пользователя удалили — оставить след, но обнулить FK
+                ->nullable()               // для SET NULL при удалении
+                ->constrained('users')
+                ->nullOnDelete();          // если пользователя удалили — оставить след, но обнулить FK
 
             // флаги прогресса по пакетным переводам
             $table->boolean('has_selected_kit')->default(false);

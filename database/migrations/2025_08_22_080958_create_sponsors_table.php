@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('sponsors', function (Blueprint $table) {
-             $table->id();
+            $table->id();
 
             // один к одному с users: каждая запись описывает «спонсорские данные» пользователя
             $table->foreignId('user_id')->unique()->constrained('users')->cascadeOnDelete();

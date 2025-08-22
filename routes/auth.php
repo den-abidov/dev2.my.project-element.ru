@@ -1,4 +1,5 @@
-﻿<?php
+<?php
+
 use Illuminate\Support\Facades\Route;
 
 // routes/auth.php — заглушка

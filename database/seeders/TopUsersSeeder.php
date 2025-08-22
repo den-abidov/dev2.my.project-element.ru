@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+
 /**
  * Сидер «топ-пользователи»: создаёт фиксированную цепочку спонсоров
  * (u1 → u2 → u3 → u4) и задаёт кошельки для P2P-переводов.
@@ -12,7 +13,6 @@ use Illuminate\Support\Facades\Hash;
  * Зачем: нужны предсказуемые аккаунты и upline для разработки/тестов
  * ReferralSystem/Payment/Subscription.
  *
- * @package Database\Seeders
  * @since 1.0
  * @see \Database\Seeders\DatabaseSeeder  Точка входа, откуда вызывается сидер
  */

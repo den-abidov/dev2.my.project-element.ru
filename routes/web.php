@@ -17,13 +17,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 // добавил
-require __DIR__.'/registration.php';
-require __DIR__.'/user.php';
-require __DIR__.'/referral.php';
-require __DIR__.'/payment.php';
-require __DIR__.'/subscription.php';
-require __DIR__.'/admin.php';
-require __DIR__.'/report.php';
+require __DIR__ . '/registration.php';
+require __DIR__ . '/user.php';
+require __DIR__ . '/referral.php';
+require __DIR__ . '/payment.php';
+require __DIR__ . '/subscription.php';
+require __DIR__ . '/admin.php';
+require __DIR__ . '/report.php';
