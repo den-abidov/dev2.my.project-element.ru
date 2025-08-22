@@ -1,0 +1,54 @@
+﻿name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      # PHP 8.3 + расширения; кэш композера
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.3"
+          extensions: mbstring, intl, pdo_sqlite
+          coverage: none
+
+      - name: Cache Composer deps
+        uses: actions/cache@v4
+        with:
+          path: vendor
+          key: composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: composer-
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress --no-interaction
+
+      # Готовим .env под SQLite и ключ приложения
+      - name: Prepare environment (.env + SQLite)
+        run: |
+          cp .env.example .env
+          php -r "file_exists('database/database.sqlite') || touch('database/database.sqlite');"
+          sed -i 's/^DB_CONNECTION=.*/DB_CONNECTION=sqlite/' .env
+          sed -i 's/^DB_DATABASE=.*/DB_DATABASE=database\/database.sqlite/' .env
+          php artisan key:generate
+
+      - name: Run migrations & seeders
+        run: |
+          php artisan migrate --no-interaction --force
+          php artisan db:seed --no-interaction
+
+      - name: Pint (code style)
+        run: vendor/bin/pint --test
+
+      - name: PHPStan (Larastan)
+        run: vendor/bin/phpstan analyse --no-progress
+
+      - name: PHPUnit tests
+        run: php artisan test --no-interaction
